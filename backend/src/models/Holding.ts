@@ -6,33 +6,33 @@ import { PeerRecommendation } from './PeerRecommendation';
 @Entity('holdings')
 export class Holding {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id!: string;
 
     @Column('uuid')
-    portfolio_id: string;
+    portfolio_id!: string;
 
     @Column({ type: 'varchar', length: 10 })
-    ticker: string;
+    ticker!: string;
 
     @Column({ type: 'decimal', precision: 5, scale: 2 })
-    weight_pct: number;
+    weight_pct!: number;
 
     @Column({ type: 'text', nullable: true })
-    sector: string;
+    sector?: string;
 
     @Column({ type: 'decimal', nullable: true })
-    market_cap: number;
+    market_cap?: number;
 
     @Column({ type: 'decimal', nullable: true })
-    co2_emission: number;
+    co2_emission?: number;
 
     @Column({ type: 'jsonb', nullable: true })
-    data_sources: Record<string, any>;
+    data_sources?: Record<string, any>;
 
-    @ManyToOne(() => Portfolio, portfolio => portfolio.holdings)
+    @ManyToOne(() => Portfolio, portfolio => portfolio.holdings, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'portfolio_id' })
-    portfolio: Portfolio;
+    portfolio!: Portfolio;
 
     @OneToMany(() => PeerRecommendation, peer => peer.holding)
-    peer_recommendations: PeerRecommendation[];
+    peer_recommendations!: PeerRecommendation[];
 }

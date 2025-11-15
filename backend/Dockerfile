@@ -11,9 +11,7 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Compile TypeScript
-RUN npm run build
-
+# Skip build for now - dev mode handles TypeScript
 EXPOSE 8000
 
 CMD ["npm", "run", "dev"]

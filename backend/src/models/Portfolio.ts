@@ -6,20 +6,20 @@ import { PeerRecommendation } from './PeerRecommendation';
 @Entity('portfolios')
 export class Portfolio {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id!: string;
 
     @Column('text')
-    name: string;
+    name!: string;
 
     @Column({ type: 'varchar', length: 100, nullable: true })
-    owner_id: string;
+    owner_id?: string;
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at!: Date;
 
-    @OneToMany(() => Holding, holding => holding.portfolio)
-    holdings: Holding[];
+    @OneToMany(() => Holding, holding => holding.portfolio, { cascade: true })
+    holdings!: Holding[];
 
     @OneToMany(() => PeerRecommendation, peer => peer.portfolio)
-    peer_recommendations: PeerRecommendation[];
+    peer_recommendations!: PeerRecommendation[];
 }

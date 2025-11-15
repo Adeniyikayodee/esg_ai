@@ -10,7 +10,7 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL || 'postgresql://fundmanager:fundmanager123@localhost:5432/fundmanager_db',
     synchronize: process.env.NODE_ENV === 'development', // Auto-create tables in dev
     logging: process.env.NODE_ENV === 'development',
     entities: [Portfolio, Holding, PeerRecommendation],
