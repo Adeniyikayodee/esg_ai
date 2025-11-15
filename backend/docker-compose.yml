@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: fundmanager_db
+    environment:
+      POSTGRES_USER: fundmanager
+      POSTGRES_PASSWORD: fundmanager123
+      POSTGRES_DB: fundmanager_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fundmanager"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: fundmanager_backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://fundmanager:fundmanager123@db:5432/fundmanager_db
+      NODE_ENV: development
+      PORT: 8000
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./src:/app/src
+      - ./node_modules:/app/node_modules
+    command: npm run dev
+
+volumes:
+  postgres_data:
