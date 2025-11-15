@@ -29,6 +29,6 @@ export const initializeDatabase = async () => {
 };
 
 // Helper to get repository instances
-export const getRepository = <T>(entity: any) => {
+export const getRepository = <T extends object>(entity: any) => {
     return AppDataSource.getRepository<T>(entity);
 };

@@ -32,12 +32,27 @@ app.get('/health', (req: Request, res: Response) => {
     });
 });
 
+// Root endpoint
+app.get('/', (req: Request, res: Response) => {
+    res.json({
+        message: 'Fund Manager API',
+        version: '1.0.0',
+        endpoints: {
+            upload: 'POST /api/portfolio/upload',
+            get: 'GET /api/portfolio/:id',
+            analyse: 'POST /api/portfolio/:id/analyse',
+            peers: 'POST /api/portfolio/:portfolioId/holding/:holdingId/peers',
+            replace: 'POST /api/portfolio/:portfolioId/holding/:holdingId/replace'
+        }
+    });
+});
+
 // API Routes
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/portfolio', holdingRoutes);
 
 // 404 handler
-app.use('*', (req: Request, res: Response) => {
+app.use((req: Request, res: Response) => {
     res.status(404).json({
         error: 'Not Found',
         message: `Route ${req.originalUrl} not found`

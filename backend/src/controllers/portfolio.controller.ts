@@ -31,7 +31,7 @@ export const uploadPortfolio = async (req: Request, res: Response, next: NextFun
                     skip_empty_lines: true,
                     trim: true
                 }))
-                .on('data', (row) => {
+                .on('data', (row: any) => {
                     holdings.push({
                         ticker: row.ticker || row.Ticker || row.TICKER,
                         weight_pct: parseFloat(row.weight_pct || row.weight || row.Weight)
@@ -113,7 +113,7 @@ export const getPortfolio = async (req: Request, res: Response, next: NextFuncti
     }
 };
 
-// Analyse portfolio (enrich with Valyu data) - STUB VERSION
+// Analyse portfolio (enrich with Valyu data)
 export const analysePortfolio = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
@@ -127,23 +127,31 @@ export const analysePortfolio = async (req: Request, res: Response, next: NextFu
             return res.status(404).json({ error: 'Portfolio not found' });
         }
 
-        // STUB: Mock enrichment for now
-        const enrichedHoldings = holdings.map(holding => {
-            holding.sector = 'Technology'; // Mock sector
-            holding.market_cap = Math.random() * 1000000000; // Random market cap
-            holding.co2_emission = Math.random() * 100; // Random CO2
-            holding.data_sources = {
-                provider: 'Valyu Mock',
-                updated: new Date().toISOString()
-            };
-            return holding;
-        });
+        // Enrich each holding with Valyu data
+        const enrichedHoldings = await Promise.all(
+            holdings.map(async (holding) => {
+                try {
+                    const enrichedData = await valyuClient.enrichHolding(holding.ticker);
+
+                    holding.sector = enrichedData.sector;
+                    holding.market_cap = enrichedData.market_cap;
+                    holding.co2_emission = enrichedData.co2_emission;
+                    holding.data_sources = enrichedData.sources;
+
+                    return holding;
+                } catch (error) {
+                    console.error(`Failed to enrich ${holding.ticker}:`, error);
+                    return holding;
+                }
+            })
+        );
 
         await holdingRepo.save(enrichedHoldings);
 
         res.json({
-            message: 'Portfolio analysis complete (using mock data)',
-            holdings_enriched: enrichedHoldings.length
+            message: 'Portfolio analysis complete',
+            holdings_enriched: enrichedHoldings.filter(h => h.sector).length,
+            total_holdings: enrichedHoldings.length
         });
     } catch (error) {
         next(error);
