@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Holding, Replacement } from './types';
 import { originalPortfolio, candidatePeers } from './data/mockData';
 import { calculateMetrics, exportToCSV, filterPeers } from './utils/portfolio';
+import CompanyComparison from './components/CompanyComparison';
 
 function App() {
-    const [activeTab, setActiveTab] = useState<'portfolio' | 'peers' | 'new'>('portfolio');
+    const [activeTab, setActiveTab] = useState<'portfolio' | 'peers' | 'new' | 'comparison'>('portfolio');
     const [newPortfolio, setNewPortfolio] = useState<Holding[] | null>(null);
     const [replacements, setReplacements] = useState<Replacement[]>([]);
     const [selectedHolding, setSelectedHolding] = useState<Holding | null>(null);
@@ -87,6 +88,20 @@ function App() {
                         }}
                     >
                         New Portfolio {newPortfolio && `(${replacements.length})`}
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('comparison')}
+                        style={{
+                            padding: '0.75rem 1.5rem',
+                            fontWeight: '600',
+                            borderBottom: activeTab === 'comparison' ? '3px solid #16a34a' : 'none',
+                            color: activeTab === 'comparison' ? '#166534' : '#6b7280',
+                            backgroundColor: 'white',
+                            border: 'none',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Company Comparison
                     </button>
                 </div>
 
@@ -320,6 +335,11 @@ function App() {
                             </table>
                         </div>
                     </div>
+                )}
+
+                {/* Company Comparison Tab */}
+                {activeTab === 'comparison' && (
+                    <CompanyComparison />
                 )}
             </div>
         </div>

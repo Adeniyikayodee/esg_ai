@@ -4,6 +4,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import portfolioRoutes from './routes/portfolio.routes';
 import holdingRoutes from './routes/holding.routes';
+import comparisonRoutes from './routes/comparison.routes';
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.get('/', (req: Request, res: Response) => {
 // API Routes
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/portfolio', holdingRoutes);
+app.use('/api/comparison', comparisonRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
