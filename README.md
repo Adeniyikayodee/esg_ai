@@ -160,6 +160,5 @@ Natural extensions:
 ## 4. Demo
 
 - **Live app:** [https://esgai-phi.vercel.app/](https://esgai-phi.vercel.app/)
-- **Demo video:** _Add your recorded demo link here (for example, Loom or YouTube)_
 
 The live link gives reviewers and judges a hands-on view of **CLIM.IO**, while the demo video provides a guided walkthrough of the main flows and design decisions.
