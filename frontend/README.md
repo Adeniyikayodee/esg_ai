@@ -1,4 +1,4 @@
-# ESG Fund ai
+# Clim.io
 
 A React + TypeScript application for optimizing investment portfolios based on ESG (Environmental, Social, Governance) metrics and carbon ratings.
 
