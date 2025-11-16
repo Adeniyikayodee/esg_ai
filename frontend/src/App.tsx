@@ -3,8 +3,10 @@ import { Holding, Replacement } from './types';
 import { originalPortfolio, candidatePeers } from './data/mockData';
 import { calculateMetrics, exportToCSV, filterPeers } from './utils/portfolio';
 import CompanyComparison from './components/CompanyComparison';
+import UploadPage from './components/UploadPage';
 
 function App() {
+    const [hasUploadedFile, setHasUploadedFile] = useState(false);
     const [activeTab, setActiveTab] = useState<'portfolio' | 'peers' | 'new' | 'comparison'>('portfolio');
     const [newPortfolio, setNewPortfolio] = useState<Holding[] | null>(null);
     const [replacements, setReplacements] = useState<Replacement[]>([]);
@@ -35,13 +37,35 @@ function App() {
         setTimeout(() => setNotification(null), 3000);
     };
 
+    // Show upload page if no file has been uploaded yet
+    if (!hasUploadedFile) {
+        return <UploadPage onUploadComplete={() => setHasUploadedFile(true)} />;
+    }
+
     return (
         <div style={{ minHeight: '100vh', backgroundColor: '#f0fdf4', padding: '2rem' }}>
             {/* Header */}
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#166534' }}>
-                    Clim.io
-                </h1>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                    <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#166534' }}>
+                        Clim.io
+                    </h1>
+                    <button
+                        onClick={() => setHasUploadedFile(false)}
+                        style={{
+                            padding: '0.5rem 1rem',
+                            backgroundColor: '#f3f4f6',
+                            color: '#374151',
+                            border: '1px solid #d1d5db',
+                            borderRadius: '0.5rem',
+                            cursor: 'pointer',
+                            fontWeight: '600',
+                            fontSize: '0.875rem'
+                        }}
+                    >
+                        📤 New Upload
+                    </button>
+                </div>
 
                 {/* Tabs */}
                 <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '2px solid #dcfce7', paddingBottom: '0' }}>
