@@ -151,14 +151,29 @@ Current emphasis:
 Natural extensions:
 
 - Constraint-based portfolio tilting toward climate targets.
-- Scenario and stress analysis around specific themes or sectors.
-- Exportable reports for investment committees and client updates.
-- Deeper integration of AI assistants that explain ESG shifts in plain language.
+
+- Scenario and stress analysis around specific themes or sectors, including overlays that use Earth observation data for physical risk and transition risk views.
+
+- Exportable reports for investment committees, stewardship teams, and client updates.
+
+- Deeper integration of AI assistants that explain ESG shifts, climate signals, and satellite-based insights in plain language.
+
+Richer plugin support for:
+
+- Automated fund screening and selection based on user-defined ESG and climate policies
+
+- Periodic rescoring of approved fund lists as new data arrives
+
+Expanded team workspace features:
+
+- Role-based access to portfolios and scenarios
+
+- Commenting and review workflows around ESG and climate decisions
+
+- Versioned “playbooks” that encode an organisation’s climate policy into repeatable steps
 
 ---
 
 ## 4. Demo
 
 - **Live app:** [https://esgai-phi.vercel.app/](https://esgai-phi.vercel.app/)
-
-The live link gives reviewers and judges a hands-on view of **CLIM.IO**, while the demo video provides a guided walkthrough of the main flows and design decisions.
