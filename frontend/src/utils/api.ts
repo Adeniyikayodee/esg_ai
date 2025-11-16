@@ -28,11 +28,22 @@ export async function fetchCompanyComparison(
             base_company: baseCompany,
         });
 
-        const response = await fetch(`/api/comparison/company-comparison?${params.toString()}`);
+        const url = `/api/comparison/company-comparison?${params.toString()}`;
+        console.log('Calling API:', url);
+
+        const response = await fetch(url);
 
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || `API error: ${response.status}`);
+            const text = await response.text();
+            console.error('API response not OK:', response.status, text);
+            throw new Error(`API error: ${response.status} - ${text.slice(0, 200)}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType?.includes('application/json')) {
+            const text = await response.text();
+            console.error('Invalid content type:', contentType, 'Response:', text.slice(0, 200));
+            throw new Error(`Invalid content type: ${contentType}`);
         }
 
         const data = await response.json() as CompanyComparisonResponse;

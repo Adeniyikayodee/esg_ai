@@ -80,7 +80,7 @@ function getMockGeminiResponse(prompt: string): string {
     if (prompt.includes('similar')) {
         return JSON.stringify(['Apple Inc.', 'Microsoft Corporation', 'Alphabet Inc.', 'Amazon.com Inc.', 'Meta Platforms Inc.']);
     }
-    
+
     if (prompt.includes('Extract financial')) {
         return JSON.stringify({
             company: 'Shell',
