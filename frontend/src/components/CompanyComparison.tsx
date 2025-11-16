@@ -271,8 +271,8 @@ const CompanyComparison: React.FC = () => {
                     </div>
 
                     {/* Analytics Panel */}
-                    <AnalyticsPanel 
-                        metrics={generateMockMetrics()} 
+                    <AnalyticsPanel
+                        metrics={generateMockMetrics()}
                         tradeoffs={generateMockTradeoffs()}
                     />
                 </>
