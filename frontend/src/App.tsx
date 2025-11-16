@@ -39,7 +39,7 @@ function App() {
             {/* Header */}
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#166534' }}>
-                    ESG Portfolio Optimizer
+                    ESG Fund ai
                 </h1>
 
                 {/* Tabs */}
