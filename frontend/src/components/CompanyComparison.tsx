@@ -79,9 +79,12 @@ const CompanyComparison: React.FC = () => {
                         color: '#991b1b',
                         borderRadius: '0.5rem',
                         marginBottom: '1.5rem',
+                        whiteSpace: 'pre-wrap',
+                        wordBreak: 'break-word',
+                        fontSize: '0.875rem'
                     }}
                 >
-                    {error}
+                    <strong>Error:</strong> {error}
                 </div>
             )}
 
